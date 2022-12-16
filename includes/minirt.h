@@ -6,6 +6,27 @@
 
 #include "mlx.h"
 #include <math.h>
+#include <stdlib.h>
+
+# define X_EVENT_KEY_PRESS		2
+# define X_EVENT_KEY_EXIT		17
+
+# define KEY_ESC			53
+
+typedef struct s_vars
+{
+    void *mlx;
+    void *win;
+} t_vars;
+
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+} t_data;
 
 typedef struct s_vec
 {
@@ -70,5 +91,6 @@ t_color color_set(double r, double g, double b);
 t_color ray_color(t_ray *ray);
 //mlx_utils.c
 int rgb_to_int(double trans, t_color *color);
+void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif
