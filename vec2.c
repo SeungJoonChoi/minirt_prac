@@ -27,7 +27,7 @@ t_vec vec_unit(t_vec *vec)
 
     length = vec_length(vec);
     ret.x = vec->x / length;
-    ret.x = vec->y / length;
-    ret.x = vec->z / length;
+    ret.y = vec->y / length;
+    ret.z = vec->z / length;
     return (ret);
 }

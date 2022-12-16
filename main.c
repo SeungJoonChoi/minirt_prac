@@ -22,7 +22,7 @@ int main()
 
     mlx_ptr = mlx_init();
     mlx_win = mlx_new_window(mlx_ptr, img.image_width, img.image_height, "seunchoi_minirt");
-    mlx_loop(mlx_ptr);
+    
 
     j = img.image_height - 1;
     while (j >= 0)
@@ -34,10 +34,13 @@ int main()
             v = (double)j / (double)(img.image_height - 1);
             ray = ray_viewport(&cam, u, v);
             color = ray_color(&ray);
+            mlx_pixel_put(mlx_ptr, mlx_win, i, img.image_height - 1 - j, rgb_to_int(0.0, &color));
             ++i;
         }
         --j;
     }
+
+    mlx_loop(mlx_ptr);
     
     return (0);
 }

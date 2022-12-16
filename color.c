@@ -17,9 +17,9 @@ t_color ray_color(t_ray *ray)
     double t;
 
     unit_vec = vec_unit(&ray->dir);
-    t = (unit_vec.y + 1) / 2.0;
+    t = 0.5 * (unit_vec.y + 1.0);
     ret.r = 1.0 - (0.5 * t);
-    ret.g = 1.0 - (0.7 * t);
+    ret.g = 1.0 - (0.3 * t);
     ret.b = 1.0;
     return (ret);
 }

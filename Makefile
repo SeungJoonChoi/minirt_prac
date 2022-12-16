@@ -17,7 +17,7 @@ NAME = minirt
 INCLUDE = -I./includes -I./mlx
 LIBS = -L./mlx -lmlx
 
-SRCS = main.c ray.c vec1.c vec2.c image.c camera.c color.c
+SRCS = main.c ray.c vec1.c vec2.c image.c camera.c color.c mlx_utils.c
 OBJS = $(SRCS:.c=.o)
 
 .c.o :
