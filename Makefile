@@ -15,7 +15,7 @@ CFLAGS = -Wall -Wextra -Werror
 INCLUDE = -I./includes
 NAME = minirt
 
-SRCS = main.c
+SRCS = main.c ray.c vec1.c vec2.c image.c camera.c
 
 OBJS = $(SRCS:.c=.o)
 

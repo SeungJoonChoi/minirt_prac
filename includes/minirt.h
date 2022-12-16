@@ -31,6 +31,7 @@ typedef struct s_camera
     double viewport_height;
     double viewport_width;
     double focal_length;
+    t_vec lower_left_corner;
 } t_camera;
 
 //vec1.c
@@ -45,9 +46,11 @@ t_vec vec_cross(t_vec *vec1, t_vec *vec2);
 double vec_length(t_vec *vec);
 t_vec vec_unit(t_vec *vec);
 //ray.c
-t_ray ray(t_vec *origin, t_vec* direction);
+t_ray ray_set(t_vec *origin, t_vec* direction);
 t_vec ray_at(t_ray *ray, double t);
+t_ray ray_viewport(t_camera *camera, double u, double v);
 //camera.c
+t_vec lower_left_corner(t_camera *camera);
 t_camera camera(t_vec *orig, double fov, double aspect_ratio);
 //image.c
 t_image image(int width, double aspect_ratio);
