@@ -8,14 +8,21 @@ int main()
     t_vec orig;
     t_color color;
 
+    void *mlx_ptr;
+    void *mlx_win;
+
     int j;
     int i;
     double u;
     double v;
 
     orig = vec(1, 2, 3);
-    img = image(400, 16 / 9);
+    img = image(1200, 16.0 / 9.0);
     cam = camera(&orig, 70.0, img.aspect_ratio);
+
+    mlx_ptr = mlx_init();
+    mlx_win = mlx_new_window(mlx_ptr, img.image_width, img.image_height, "seunchoi_minirt");
+    mlx_loop(mlx_ptr);
 
     j = img.image_height - 1;
     while (j >= 0)

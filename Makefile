@@ -25,11 +25,12 @@ OBJS = $(SRCS:.c=.o)
 
 $(NAME) : $(OBJS)
 	$(MAKE) -C./mlx
-	$(CC) $(CFLAGS) $(INCLUDE) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDE) $(LIBS) -o $(NAME) $(OBJS) -framework OpenGL -framework Appkit
 
 all : $(NAME)
 
 clean :
+	$(MAKE) -C./mlx clean
 	rm -f $(OBJS)
 
 fclean : clean

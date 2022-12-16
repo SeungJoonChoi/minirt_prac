@@ -1,9 +1,11 @@
 #ifndef MINIRT_H
 #define MINIRT_H
 
-#include <math.h>
 #define degToRad(angleInDegrees) ((angleInDegrees) * M_PI / 180.0)
 #define radToDeg(angleInRadians) ((angleInRadians) * 180.0 / M_PI)
+
+#include "mlx.h"
+#include <math.h>
 
 typedef struct s_vec
 {

@@ -7,5 +7,5 @@ int rgb_to_int(double trans, t_color *color)
     int g;
     int b;
 
-    t = trans
+    // t = trans
 }
