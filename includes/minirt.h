@@ -36,6 +36,13 @@ typedef struct s_camera
     t_vec lower_left_corner;
 } t_camera;
 
+typedef struct s_color
+{
+    double r;
+    double g;
+    double b;
+} t_color;
+
 //vec1.c
 t_vec vec(double x, double y, double z);
 t_vec vec_sum(t_vec *vec1, t_vec *vec2);
@@ -56,6 +63,8 @@ t_vec lower_left_corner(t_camera *camera);
 t_camera camera(t_vec *orig, double fov, double aspect_ratio);
 //image.c
 t_image image(int width, double aspect_ratio);
-
+//color.c
+t_color color_set(double r, double g, double b);
+t_color ray_color(t_ray *ray);
 
 #endif

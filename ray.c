@@ -19,12 +19,12 @@ t_vec ray_at(t_ray *ray, double t)
     return (ret);
 }
 
-t_ray ray_viewport(t_camera *camera, double u, double v)
+t_ray ray_viewport(t_camera *c, double u, double v)
 {
     t_ray ret;
-    ret.orig = camera->orig;
-    ret.dir = vec(camera->lower_left_corner.x + u*camera->horizontal.x + v*camera->vertical.x - camera->orig.x);
-    //
-
+    ret.orig = c->orig;
+    ret.dir.x = c->lower_left_corner.x + u * c->horizontal.x + v * c->vertical.x - c->orig.x;
+    ret.dir.y = c->lower_left_corner.y + u * c->horizontal.y + v * c->vertical.y - c->orig.y;
+    ret.dir.z = c->lower_left_corner.z + u * c->horizontal.z + v * c->vertical.z - c->orig.z;
     return (ret);
 }
