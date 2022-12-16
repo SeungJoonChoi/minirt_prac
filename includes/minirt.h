@@ -18,6 +18,13 @@ typedef struct s_ray
     t_vec dir;
 } t_ray;
 
+typedef struct s_image
+{
+    double aspect_ratio;
+    int image_width;
+    int image_height;
+} t_image;
+
 typedef struct s_camera
 {
     t_vec orig;
@@ -37,5 +44,13 @@ double vec_dot(t_vec *vec1, t_vec *vec2);
 t_vec vec_cross(t_vec *vec1, t_vec *vec2);
 double vec_length(t_vec *vec);
 t_vec vec_unit(t_vec *vec);
+//ray.c
+t_ray ray(t_vec *origin, t_vec* direction);
+t_vec ray_at(t_ray *ray, double t);
+//camera.c
+t_camera camera(t_vec *orig, double fov, double aspect_ratio);
+//image.c
+t_image image(int width, double aspect_ratio);
+
 
 #endif
