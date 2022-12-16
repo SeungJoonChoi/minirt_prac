@@ -22,6 +22,9 @@ t_vec ray_at(t_ray *ray, double t)
 t_ray ray_viewport(t_camera *camera, double u, double v)
 {
     t_ray ret;
+    ret.orig = camera->orig;
+    ret.dir = vec(camera->lower_left_corner.x + u*camera->horizontal.x + v*camera->vertical.x - camera->orig.x);
+    //
 
     return (ret);
 }
