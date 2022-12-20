@@ -20,22 +20,23 @@ t_camera camera(t_vec orig, t_vec dir, double fov, double aspect_ratio)
     t_vec vup;
 
     theta = degToRad(fov);
-    h = tan(theta/2);
+    h = tan(theta / 2); //탄젠트 세타로 h(뷰포트 높이의 절반) 길이 구하기
     viewport_height = 2.0 * h;
     viewport_width = aspect_ratio * viewport_height;
 
+    // w와 외적해서 u 구하기
     vup = vec(0, 1, 0);
     if (dir.x == 0 && dir.y != 0 && dir.z == 0)
         vup = vec(0, 0, 1);
     
-    ret.w = vec_unit(dir);
-    ret.u = vec_unit(vec_cross(ret.w, vup));
-    ret.v = vec_cross(ret.u, ret.w);
+    ret.w = vec_unit(dir); // 뷰포트로 향한 카메라의 방향벡터
+    ret.u = vec_unit(vec_cross(ret.w, vup)); // 뷰포트의 가로(x축) 방향벡터
+    ret.v = vec_cross(ret.u, ret.w); // 뷰포트의 세로(y축) 방향벡터
 
     ret.orig = orig;
 
-    ret.horizontal = vec_mul(ret.u, viewport_width);
-    ret.vertical = vec_mul(ret.v, viewport_height);
-    ret.lower_left_corner = lower_left_corner(&ret);
+    ret.horizontal = vec_mul(ret.u, viewport_width); //뷰포트 가로 벡터
+    ret.vertical = vec_mul(ret.v, viewport_height); //뷰포트 세로 벡터
+    ret.lower_left_corner = lower_left_corner(&ret); //뷰포트 왼쪽 하단의 정점 좌표
     return (ret);
 }
