@@ -87,7 +87,7 @@ t_camera camera(t_vec orig, t_vec dir, double fov, double aspect_ratio);
 //image.c
 t_image image(int width, double aspect_ratio);
 //color.c
-t_color color_set(double r, double g, double b);
+t_color color(double r, double g, double b);
 t_color ray_color(t_ray ray);
 //mlx_utils.c
 int rgb_to_int(double trans, t_color *color);
