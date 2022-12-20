@@ -9,9 +9,9 @@ t_vec vec_cross(t_vec *vec1, t_vec *vec2)
 {
     t_vec ret;
 
-    ret.x = vec1->y * vec2->z + vec1->z * vec2->y;
-    ret.y = vec1->z * vec2->x + vec1->x * vec2->z;
-    ret.z = vec1->x * vec2->y + vec1->y * vec2->x;
+    ret.x = vec1->y * vec2->z - vec1->z * vec2->y;
+    ret.y = vec1->z * vec2->x - vec1->x * vec2->z;
+    ret.z = vec1->x * vec2->y - vec1->y * vec2->x;
     return (ret);
 }
 
