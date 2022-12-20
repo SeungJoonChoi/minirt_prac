@@ -32,7 +32,7 @@ int main()
     double v;
 
     img = image(1200, 16.0 / 9.0);
-    cam = camera(vec(1, 2, 3), vec(1, 0, 0), 70.0, img.aspect_ratio);
+    cam = camera(vec(0, 0, 0), vec(0, 0, 1), 70.0, img.aspect_ratio);
 
     vars.mlx = mlx_init();
     vars.win = mlx_new_window(vars.mlx, img.image_width, img.image_height, "seunchoi_minirt");

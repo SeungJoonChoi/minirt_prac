@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seunchoi <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: seungjoon <seungjoon@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/16 12:18:03 by seunchoi          #+#    #+#              #
-#    Updated: 2022/12/16 12:18:32 by seunchoi         ###   ########.fr        #
+#    Updated: 2022/12/20 21:39:30 by seungjoon        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = minirt
 INCLUDE = -I./includes -I./mlx
 LIBS = -L./mlx -lmlx
 
-SRCS = main.c ray.c vec1.c vec2.c image.c camera.c color.c mlx_utils.c
+SRCS = main.c ray.c vec1.c vec2.c image.c camera.c color.c mlx_utils.c sphere.c
 OBJS = $(SRCS:.c=.o)
 
 .c.o :
