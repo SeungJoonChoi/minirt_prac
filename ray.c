@@ -9,7 +9,7 @@ t_ray ray_set(t_vec *origin, t_vec* direction)
     return (ret);
 }
 
-t_vec ray_at(t_ray *ray, double t)
+t_vec ray_at(t_ray *ray, double t) //정점좌표
 {
     t_vec ret;
 

@@ -39,6 +39,7 @@ int main()
     data.img = mlx_new_image(vars.mlx, img.image_width, img.image_height);
     data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
     
+    // 뷰포트의 왼쪽하단부터 그리기 위해 i = 0, j = 높이 부터 시작
     j = img.image_height - 1;
     while (j >= 0)
     {
