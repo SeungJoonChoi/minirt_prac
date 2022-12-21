@@ -11,8 +11,9 @@
 
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_EXIT		17
-
 # define KEY_ESC			53
+
+#define SPHERE 0
 
 typedef struct s_vars
 {
@@ -71,6 +72,8 @@ typedef struct s_hit_record
 {
     t_vec p;
     t_vec normal;
+    double t_min;
+    double t_max;
     double t;
 } t_hit_record;
 
@@ -78,8 +81,15 @@ typedef struct s_sphere
 {
     t_vec orig;
     double rad;
-    bool (*hit)(t_ray *ray, double t_min, double t_max, t_hit_record *out);
+    int (*hit)(t_ray *ray, double t_min, double t_max, t_hit_record *out);
 } t_sphere;
+
+typedef struct s_obj
+{
+    int type;
+    void *element;
+    struct s_obj *next;
+} t_obj;
 
 //vec1.c
 t_vec vec(double x, double y, double z);
@@ -103,12 +113,13 @@ t_camera camera(t_vec orig, t_vec dir, double fov, double aspect_ratio);
 //image.c
 t_image image(int width, double aspect_ratio);
 //color.c
-t_color color(double r, double g, double b);
-t_color ray_color(t_ray ray);
+t_vec color(double r, double g, double b);
+t_vec ray_color(t_ray ray, t_obj *head);
 //mlx_utils.c
-int rgb_to_int(double trans, t_color *color);
+int rgb_to_int(double trans, t_vec *color);
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 //sphere.c
 double hit_sphere(t_vec center, double radius, t_ray ray);
+int hit(t_ray *ray, t_sphere *sphere, t_hit_record *out);
 
 #endif

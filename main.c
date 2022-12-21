@@ -23,8 +23,32 @@ int main()
     t_image img;
     t_camera cam;
     t_ray ray;
-    t_color color;
+    t_vec color;
     t_vars vars;
+
+    //obj list temp
+    t_obj head;
+    t_obj obj1;
+    t_obj obj2;
+    t_sphere s1;
+    t_sphere s2;
+
+    s1.orig = vec(-1, 0, 3);
+    s1.rad = 1.5;
+
+    s2.orig = vec(1, 0, 3);
+    s2.rad = 1.5;
+
+    obj1.type = 0;
+    obj1.element = &s1;
+
+    obj2.type = 0;
+    obj2.element = &s2;
+
+    head.next = &obj1;
+    head.next->next = &obj2;
+    head.next->next->next = NULL;
+    //////////
 
     int j;
     int i;
@@ -49,7 +73,7 @@ int main()
             u = (double)i / (double)(img.image_width - 1);
             v = (double)j / (double)(img.image_height - 1);
             ray = ray_viewport(&cam, u, v);
-            color = ray_color(ray);
+            color = ray_color(ray, &head);
             // mlx_pixel_put(mlx_ptr, mlx_win, i, img.image_height - 1 - j, rgb_to_int(0.0, &color));
             my_mlx_pixel_put(&data, i, img.image_height - 1 - j, rgb_to_int(0.0, &color));
             ++i;

@@ -53,7 +53,7 @@ double hit_sphere(t_vec center, double radius, t_ray ray)
         return (-half_b - sqrt(discriminant));
 }
 
-int hit(t_ray *ray, t_sphere *sphere, double t_min, double t_max, t_hit_record *out)
+int hit(t_ray *ray, t_sphere *sphere, t_hit_record *out)
 {
     t_vec oc;
     double half_b;
@@ -72,14 +72,16 @@ int hit(t_ray *ray, t_sphere *sphere, double t_min, double t_max, t_hit_record *
     {
         sqrtd = sqrt(discriminant);
         root = -half_b - sqrtd;
-        if (root < t_min || root > t_max)
+        if (root < out->t_min || root > out->t_max)
         {
             root = -half_b + sqrtd;
-            if (root < t_min || root > t_max)
+            if (root < out->t_min || root > out->t_max)
                 return (0);
         }
         out->t = root;
+        out->t_max = out->t;
         out->p = ray_at(ray, root);
         out->normal = vec_div(vec_sub(out->p, sphere->orig), sphere->rad);
     }
+    return (1);
 }

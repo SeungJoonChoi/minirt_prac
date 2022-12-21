@@ -1,31 +1,56 @@
 #include "minirt.h"
 
-t_color color(double r, double g, double b)
+t_vec color(double r, double g, double b)
 {
-    t_color ret;
+    t_vec ret;
 
-    ret.r = r;
-    ret.g = g;
-    ret.b = b;
+    ret.x = r;
+    ret.y = g;
+    ret.z = b;
     return (ret);
 }
 
-t_color ray_color(t_ray ray)
+t_vec ray_color(t_ray ray, t_obj *head)
 {
     t_vec unit_vec;
     double t;
-    double r;
+    // double r;
+    t_hit_record rec;
+    int hit_flag;
+    t_obj *current;
 
-    r = hit_sphere(vec(-3, 3, 5), 2, ray);
-    if (r > 0.0)
+    current = head->next;
+    hit_flag = 0;
+    rec.t = 0;
+    rec.t_min  = 0;
+    rec.t_max = INFINITY;
+    while (current != NULL)
     {
-        unit_vec = ray_at(&ray, r);
-        unit_vec = vec_unit(vec(unit_vec.x - (-3), unit_vec.y - (3), unit_vec.z + (5)));
-        return (color((1.0 + unit_vec.x) * 0.5, (1.0 + unit_vec.y) * 0.5, (1.0 + unit_vec.z) * 0.5));
+        if (hit(&ray, current->element, &rec))
+        {
+            rec.t_max = rec.t;
+            hit_flag = 1;
+        }
+        current = current->next;
     }
+
+    // r = hit_sphere(vec(-3, 3, 5), 2, ray);
+    // if (r > 0.0)
+    // {
+    //     unit_vec = ray_at(&ray, r);
+    //     unit_vec = vec_unit(vec(unit_vec.x - (-3), unit_vec.y - (3), unit_vec.z + (5)));
+    //     return (color((1.0 + unit_vec.x) * 0.5, (1.0 + unit_vec.y) * 0.5, (1.0 + unit_vec.z) * 0.5));
+    // }
+
+    if (hit_flag)
+    {
+        unit_vec = vec_unit(vec_sum(rec.normal, vec(0, 0, 4)));
+        return (vec_mul(vec_sum(unit_vec, vec(1, 1, 1)), 0.5));
+    }
+
     // if (hit_sphere(vec(0, 0, 8), 3.0, ray))
     //     return (color(1.0, 0.0, 0.0));
     unit_vec = vec_unit(ray.dir);
     t = 0.5 * (unit_vec.y + 1.0);
-    return (color(1.0 - (0.5 * t), 1.0 - (0.3 * t), 1.0));
+    return (vec(1.0 - (0.5 * t), 1.0 - (0.3 * t), 1.0));
 }
