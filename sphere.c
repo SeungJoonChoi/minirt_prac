@@ -16,7 +16,25 @@ c = (A-C)*(A-C) - r^2
 판별식이 양수일때만 픽셀의 색을 구해옴
 */
 
-int hit_sphere(t_vec center, double radius, t_ray ray)
+// int hit_sphere(t_vec center, double radius, t_ray ray)
+// {
+//     t_vec oc;
+//     t_vec unit_ray;
+//     double b;
+//     double c;
+//     double discriminant;
+
+//     oc = vec_sub(ray.orig, center);
+//     unit_ray = vec_unit(ray.dir);
+//     b = vec_dot(unit_ray, oc);
+//     c = vec_dot(oc, oc) - (radius * radius);
+//     discriminant = b * b - c;
+//     if (discriminant >= 0)
+//         return (1);
+//     return (0);
+// }
+
+double hit_sphere(t_vec center, double radius, t_ray ray)
 {
     t_vec oc;
     t_vec unit_ray;
@@ -25,11 +43,12 @@ int hit_sphere(t_vec center, double radius, t_ray ray)
     double discriminant;
 
     oc = vec_sub(ray.orig, center);
-    unit_ray = vec_unit(ray.dir);
+    unit_ray = vec_unit(ray.dir);;
     b = vec_dot(unit_ray, oc);
     c = vec_dot(oc, oc) - (radius * radius);
-    discriminant = b * b - c;
-    if (discriminant >= 0)
-        return (1);
-    return (0);
+    discriminant = (b * b) - c;
+    if (discriminant < 0)
+        return (0);
+    else
+        return (-1 * b - sqrt(discriminant));
 }
