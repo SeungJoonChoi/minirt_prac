@@ -75,6 +75,7 @@ typedef struct s_hit_record
     double t_min;
     double t_max;
     double t;
+    int front_face;
 } t_hit_record;
 
 typedef struct s_sphere

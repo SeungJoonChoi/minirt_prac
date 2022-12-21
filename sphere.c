@@ -53,6 +53,13 @@ c = (A-C)*(A-C) - r^2
 //         return (-half_b - sqrt(discriminant));
 // }
 
+void set_face_normal(t_ray *ray, t_hit_record *rec)
+{
+    rec->front_face = vec_dot(ray->dir, rec->normal) < 0;
+    if (!rec->front_face)
+        rec->normal = vec_mul(rec->normal, -1.0);
+}
+
 int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *out)
 {
     t_vec oc;
@@ -82,6 +89,8 @@ int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *out)
         out->t_max = out->t;
         out->p = ray_at(ray, root);
         out->normal = vec_div(vec_sub(out->p, sphere->orig), sphere->rad);
+
+        set_face_normal(ray, out);
     }
     return (1);
 }
