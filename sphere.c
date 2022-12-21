@@ -39,16 +39,47 @@ c = (A-C)*(A-C) - r^2
 double hit_sphere(t_vec center, double radius, t_ray ray)
 {
     t_vec oc;
-    double b;
+    double half_b;
     double c;
     double discriminant;
 
     oc = vec_sub(ray.orig, center);
-    b = vec_dot(ray.dir, oc);
-    c = vec_dot(oc, oc) - (radius * radius);
-    discriminant = (b * b) - c;
+    half_b = vec_dot(ray.dir, oc);
+    c = length_squared(oc) - (radius * radius);
+    discriminant = (half_b * half_b) - c;
     if (discriminant < 0)
         return (0);
     else
-        return (-1 * b - sqrt(discriminant));
+        return (-half_b - sqrt(discriminant));
+}
+
+int hit(t_ray *ray, t_sphere *sphere, double t_min, double t_max, t_hit_record *out)
+{
+    t_vec oc;
+    double half_b;
+    double c;
+    double discriminant;
+    double sqrtd;
+    double root;
+
+    oc = vec_sub(ray->orig, sphere->orig);
+    half_b = vec_dot(ray->dir, oc);
+    c = length_squared(oc) - (sphere->rad * sphere->rad);
+    discriminant = (half_b * half_b) - c;
+    if (discriminant < 0)
+        return (0);
+    else
+    {
+        sqrtd = sqrt(discriminant);
+        root = -half_b - sqrtd;
+        if (root < t_min || root > t_max)
+        {
+            root = -half_b + sqrtd;
+            if (root < t_min || root > t_max)
+                return (0);
+        }
+        out->t = root;
+        out->p = ray_at(ray, root);
+        out->normal = vec_div(vec_sub(out->p, sphere->orig), sphere->rad);
+    }
 }

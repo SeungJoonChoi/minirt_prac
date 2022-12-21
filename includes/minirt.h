@@ -7,6 +7,7 @@
 #include "mlx.h"
 #include <math.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 # define X_EVENT_KEY_PRESS		2
 # define X_EVENT_KEY_EXIT		17
@@ -66,6 +67,20 @@ typedef struct s_color
     double b;
 } t_color;
 
+typedef struct s_hit_record
+{
+    t_vec p;
+    t_vec normal;
+    double t;
+} t_hit_record;
+
+typedef struct s_sphere
+{
+    t_vec orig;
+    double rad;
+    bool (*hit)(t_ray *ray, double t_min, double t_max, t_hit_record *out);
+} t_sphere;
+
 //vec1.c
 t_vec vec(double x, double y, double z);
 t_vec vec_sum(t_vec vec1, t_vec vec2);
@@ -75,6 +90,7 @@ t_vec vec_div(t_vec vec, double t);
 //vec2.c
 double vec_dot(t_vec vec1, t_vec vec2);
 t_vec vec_cross(t_vec vec1, t_vec vec2);
+double length_squared(t_vec vec);
 double vec_length(t_vec vec);
 t_vec vec_unit(t_vec vec);
 //ray.c

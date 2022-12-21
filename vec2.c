@@ -15,9 +15,14 @@ t_vec vec_cross(t_vec vec1, t_vec vec2)
     return (ret);
 }
 
+double length_squared(t_vec vec)
+{
+    return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+}
+
 double vec_length(t_vec vec)
 {
-    return (sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
+    return (sqrt(length_squared(vec)));
 }
 
 t_vec vec_unit(t_vec vec)
