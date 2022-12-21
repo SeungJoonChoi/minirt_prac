@@ -20,7 +20,7 @@ t_camera camera(t_vec orig, t_vec dir, double fov, double aspect_ratio)
     t_vec vup;
 
     theta = degToRad(fov);
-    h = tan(theta / 2); //탄젠트 세타로 h(뷰포트 높이의 절반) 길이 구하기
+    h = tan(theta / 2.0); //탄젠트 세타로 h(뷰포트 높이의 절반) 길이 구하기
     viewport_height = 2.0 * h;
     viewport_width = aspect_ratio * viewport_height;
 

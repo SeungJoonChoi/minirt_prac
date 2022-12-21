@@ -33,16 +33,16 @@ int main()
     t_sphere s1;
     t_sphere s2;
 
-    s1.orig = vec(0, 0, 0);
-    s1.rad = 0.512222;
+    s1.orig = vec(-25, 0, 100);
+    s1.rad = 50;
 
-    s2.orig = vec(0, 0, 1);
-    s2.rad = 0.5;
+    s2.orig = vec(75, 0, 100);
+    s2.rad = 50;
 
-    obj1.type = 0;
+    obj1.type = SPHERE;
     obj1.element = &s1;
 
-    obj2.type = 0;
+    obj2.type = SPHERE;
     obj2.element = &s2;
 
     head.next = &obj1;
