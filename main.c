@@ -33,10 +33,10 @@ int main()
     t_sphere s1;
     t_sphere s2;
 
-    s1.orig = vec(-1, 0, 3);
+    s1.orig = vec(-1, 0, 4);
     s1.rad = 1.5;
 
-    s2.orig = vec(1, 0, 3);
+    s2.orig = vec(1, 0, 4);
     s2.rad = 1.5;
 
     obj1.type = 0;

@@ -26,7 +26,7 @@ t_vec ray_color(t_ray ray, t_obj *head)
     rec.t_max = INFINITY;
     while (current != NULL)
     {
-        if (hit(&ray, current->element, &rec))
+        if (hit_sphere(&ray, current->element, &rec))
         {
             rec.t_max = rec.t;
             hit_flag = 1;

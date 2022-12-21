@@ -36,24 +36,24 @@ c = (A-C)*(A-C) - r^2
 //     return (0);
 // }
 
-double hit_sphere(t_vec center, double radius, t_ray ray)
-{
-    t_vec oc;
-    double half_b;
-    double c;
-    double discriminant;
+// double hit_sphere(t_vec center, double radius, t_ray ray)
+// {
+//     t_vec oc;
+//     double half_b;
+//     double c;
+//     double discriminant;
 
-    oc = vec_sub(ray.orig, center);
-    half_b = vec_dot(ray.dir, oc);
-    c = length_squared(oc) - (radius * radius);
-    discriminant = (half_b * half_b) - c;
-    if (discriminant < 0)
-        return (0);
-    else
-        return (-half_b - sqrt(discriminant));
-}
+//     oc = vec_sub(ray.orig, center);
+//     half_b = vec_dot(ray.dir, oc);
+//     c = length_squared(oc) - (radius * radius);
+//     discriminant = (half_b * half_b) - c;
+//     if (discriminant < 0)
+//         return (0);
+//     else
+//         return (-half_b - sqrt(discriminant));
+// }
 
-int hit(t_ray *ray, t_sphere *sphere, t_hit_record *out)
+int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *out)
 {
     t_vec oc;
     double half_b;
