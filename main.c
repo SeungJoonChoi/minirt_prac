@@ -28,26 +28,30 @@ int main()
 
     //obj list temp
     t_obj head;
-    t_obj obj1;
-    t_obj obj2;
-    t_sphere s1;
-    t_sphere s2;
+    // t_obj obj1;
+    // t_obj obj2;
+    // t_sphere* s1;
+    // t_sphere s2;
 
-    s1.orig = vec(-25, 0, 100);
-    s1.rad = 50;
+    // s1.orig = vec(-25, 0, 100);
+    // s1.rad = 50;
 
-    s2.orig = vec(75, 0, 100);
-    s2.rad = 50;
+    // s2.orig = vec(75, 0, 100);
+    // s2.rad = 50;
 
-    obj1.type = SPHERE;
-    obj1.element = &s1;
+    // obj1.type = SPHERE;
+    // obj1.element = &s1;
 
-    obj2.type = SPHERE;
-    obj2.element = &s2;
+    // obj2.type = SPHERE;
+    // obj2.element = &s2;
 
-    head.next = &obj1;
-    head.next->next = &obj2;
-    head.next->next->next = NULL;
+    // head.next = &obj1;
+    // head.next->next = &obj2;
+    // head.next->next->next = NULL;
+    obj_list_init(&head);
+    // s1 = sphere_init(vec(-25, 0, 100), 50);
+    obj_add(&head, SPHERE, sphere(vec(-25, 0, 100), 50));
+    obj_add(&head, SPHERE, sphere(vec(75, 0, 100), 50));
     //////////
 
     int j;

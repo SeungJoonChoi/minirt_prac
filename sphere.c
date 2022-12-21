@@ -53,7 +53,17 @@ c = (A-C)*(A-C) - r^2
 //         return (-half_b - sqrt(discriminant));
 // }
 
-void set_face_normal(t_ray *ray, t_hit_record *rec)
+t_sphere *sphere(t_vec origin, double radius)
+{
+    t_sphere *new;
+
+    new = (t_sphere*)malloc(sizeof(t_sphere));
+    new->orig = origin;
+    new->rad = radius;
+    return (new);
+}
+
+static void set_face_normal(t_ray *ray, t_hit_record *rec)
 {
     rec->front_face = vec_dot(ray->dir, rec->normal) < 0;
     if (!rec->front_face)
@@ -79,16 +89,22 @@ int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *out)
     {
         sqrtd = sqrt(discriminant);
         root = -half_b - sqrtd;
+        /*
+        가장 가까운 t(root)값을 구하기 위해 hit했다면 t_max를 t로 줄여주고
+        이후에 만나는 오브젝트마다 검사해준다.
+        */
         if (root < out->t_min || root > out->t_max)
         {
             root = -half_b + sqrtd;
             if (root < out->t_min || root > out->t_max)
                 return (0);
         }
+        //hit_record 업데이트
         out->t = root;
-        out->t_max = out->t;
-        out->p = ray_at(ray, root);
+        out->t_max = out->t; //충돌했다면 t_max 업데이트
+        out->p = ray_at(ray, root); //충돌한 정점좌표
         out->normal = vec_div(vec_sub(out->p, sphere->orig), sphere->rad);
+        //법선벡터는 (C - A)의 단위벡터
 
         set_face_normal(ray, out);
     }

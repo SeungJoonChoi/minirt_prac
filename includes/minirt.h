@@ -119,8 +119,12 @@ t_vec ray_color(t_ray ray, t_obj *head);
 int rgb_to_int(double trans, t_vec *color);
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 //sphere.c
+t_sphere *sphere(t_vec origin, double radius);
 int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *out);
 //hit.c
 int hit(t_ray *ray, t_obj *head, t_hit_record *rec);
+//obj_list.c
+void obj_list_init(t_obj *head);
+void obj_add(t_obj *head, int type, void *object);
 
 #endif
