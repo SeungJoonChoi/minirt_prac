@@ -14,6 +14,8 @@ a = 1
 b/2 = b*(A-C)
 c = (A-C)*(A-C) - r^2
 판별식이 양수일때만 픽셀의 색을 구해옴
+
+!! b를 단위벡터라고 가정하고 쓰려면 ray.dir을 모두 단위벡터로 초기화 해야함
 */
 
 // int hit_sphere(t_vec center, double radius, t_ray ray)
@@ -37,14 +39,12 @@ c = (A-C)*(A-C) - r^2
 double hit_sphere(t_vec center, double radius, t_ray ray)
 {
     t_vec oc;
-    t_vec unit_ray;
     double b;
     double c;
     double discriminant;
 
     oc = vec_sub(ray.orig, center);
-    unit_ray = vec_unit(ray.dir);;
-    b = vec_dot(unit_ray, oc);
+    b = vec_dot(ray.dir, oc);
     c = vec_dot(oc, oc) - (radius * radius);
     discriminant = (b * b) - c;
     if (discriminant < 0)

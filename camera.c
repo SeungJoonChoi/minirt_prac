@@ -32,8 +32,7 @@ t_camera camera(t_vec orig, t_vec dir, double fov, double aspect_ratio)
     ret.w = vec_unit(dir); // 뷰포트로 향한 카메라의 방향벡터
     ret.u = vec_unit(vec_cross(vup, ret.w)); // 뷰포트의 가로(x축) 방향벡터
     ret.v = vec_cross(ret.w, ret.u); // 뷰포트의 세로(y축) 방향벡터
-    //왼손 좌표계에서는 왼손 법칙
-    //https://stackoverflow.com/questions/4820400/does-the-method-for-computing-the-cross-product-change-for-left-handed-coordinat
+    //왼손 좌표계에서는 왼손 법칙 -> https://stackoverflow.com/questions/4820400/does-the-method-for-computing-the-cross-product-change-for-left-handed-coordinat
 
     ret.orig = orig;
 

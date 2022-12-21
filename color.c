@@ -20,7 +20,7 @@ t_color ray_color(t_ray ray)
     if (r > 0.0)
     {
         unit_vec = ray_at(&ray, r);
-        unit_vec = vec_unit(vec(unit_vec.x + 3, unit_vec.y - 3, unit_vec.z + 5));
+        unit_vec = vec_unit(vec(unit_vec.x - (-3), unit_vec.y - (3), unit_vec.z + (5)));
         return (color((1.0 + unit_vec.x) * 0.5, (1.0 + unit_vec.y) * 0.5, (1.0 + unit_vec.z) * 0.5));
     }
     // if (hit_sphere(vec(0, 0, 8), 3.0, ray))
