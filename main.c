@@ -89,6 +89,8 @@ int main()
     mlx_hook(vars.win, X_EVENT_KEY_PRESS, 0, &key_press, &vars);
     mlx_hook(vars.win, X_EVENT_KEY_EXIT, 0, &close, &vars);
     mlx_loop(vars.mlx);
-    
+
+    obj_clear(&head);
+
     return (0);
 }

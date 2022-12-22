@@ -19,3 +19,16 @@ void obj_add(t_obj *head, int type, void *object)
     cur->next->type = type;
     cur->next->element = object;
 }
+
+void obj_clear(t_obj *head)
+{
+    t_obj *temp;
+
+    while (head->next)
+    {
+        temp = head->next->next;
+        free(head->next->element);
+        free(head->next);
+        head->next = temp;
+    }
+}

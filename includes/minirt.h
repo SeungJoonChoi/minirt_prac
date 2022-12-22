@@ -126,5 +126,6 @@ int hit(t_ray *ray, t_obj *head, t_hit_record *rec);
 //obj_list.c
 void obj_list_init(t_obj *head);
 void obj_add(t_obj *head, int type, void *object);
+void obj_clear(t_obj *head);
 
 #endif
