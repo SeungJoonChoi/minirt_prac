@@ -36,7 +36,8 @@ int main()
     obj_add(&scene.world, SPHERE, sphere(vec(0, 50, 150), 50, color(0, 0, 0.5)));
 
     //light
-    obj_add(&scene.light, POINT, point_light(vec(-40, 50, 0), color(1, 1, 1), 0.6));
+    obj_add(&scene.light, POINT, point_light(vec(-100, 50, 0), color(1, 1, 1), 0.6));
+    obj_add(&scene.light, POINT, point_light(vec(100, -50, 0), color(1, 0, 0), 0.6));
 
     int j;
     int i;
