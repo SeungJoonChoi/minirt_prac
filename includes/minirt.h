@@ -18,6 +18,7 @@
 
 #define SHININESS 128 //shininess value of object
 #define SPECULAR_INTENSITY 0.5
+#define LUMEN 3; //light_ratio * LUMEN
 
 typedef struct s_vars
 {

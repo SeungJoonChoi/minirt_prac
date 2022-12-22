@@ -38,8 +38,11 @@ t_vec reflect(t_vec light_dir, t_vec normal)
     double n;
 
     n = vec_dot(light_dir, normal);
+    //'광원을 향한 벡터'과 '충돌점의 법선벡터'를 내적하여 값을 구한뒤
     a = vec_mul(normal, n);
+    //'법선벡터'에 값을 곱하여 '법선방향'과 '내적한 값의 크기'를 가지는 a벡터를 구함
     ret = vec_sum(vec_sum(vec_mul(light_dir, -1), a), a);
+    //'광원을 향한 벡터'를 반전시키고 a를 두 번 더해주면 반사되어 나온 벡터를 구할 수 있음.
     return (ret);
 }
 
@@ -55,6 +58,7 @@ t_color point_light_get(t_scene *scene, t_light *light)
     double spec;
     double ksn; // shininess value of object
     double ks;  // specular strength
+    double brightness;
 
     light_dir = vec_unit(vec_sub(light->orig, scene->rec.p));
 
@@ -72,18 +76,22 @@ t_color point_light_get(t_scene *scene, t_light *light)
 
     /*
     specular light
+    물체에 맞고 반사되어 우리 눈에 들어오는 빛을 추적함
     */
     reflect_dir = reflect(light_dir, scene->rec.normal);
-    reflect_dir = vec_mul(reflect_dir, -1);
+    reflect_dir = vec_mul(reflect_dir, -1); //view_dir과 내적하기 위해 반전시킴
     spec = vec_dot(reflect_dir, scene->ray.dir);
     if (spec < 0.0)
         spec = 0.0;
-    ksn = SHININESS;
-    ks = SPECULAR_INTENSITY;
+    //내적하여 각도를 구함 -> diffuse와 마찬가지로 코사인0에 가까울수록 큰 값
+    ksn = SHININESS; //물체의 매끈한(반짝거리는) 정도
+    ks = SPECULAR_INTENSITY; //반사광의 세기 (광원의 밝기와는 다른 개념)
     spec = pow(spec, ksn);
+    // 0.0~1.0 사이의 값인 spec을 몇번 제곱하는냐에 따라서 하이라이팅의 범위가 결정됨
+    //https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fcamo.githubusercontent.com%2Fba1ce58e05aed441aac19503958ed5b878d7a51d832b96f221b165ff4e11bddc%2F68747470733a2f2f6c6561726e6f70656e676c2e636f6d2f696d672f6c69676874696e672f62617369635f6c69676874696e675f73706563756c61725f7368696e696e6573732e706e67&blockId=9c804959-8c7b-4d77-8a69-3448849d33a9
     specular = vec_mul(vec_mul(light->color, ks), spec);
-    return (vec_sum(diffuse, specular));
+    // return (vec_sum(diffuse, specular));
 
-    (void)specular;
-    return (diffuse);
+    brightness = light->intensity * LUMEN; //광원의 밝기
+    return (vec_mul(vec_sum(diffuse, specular), brightness));
 }
