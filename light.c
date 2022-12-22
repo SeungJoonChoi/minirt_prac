@@ -37,6 +37,7 @@ t_vec reflect(t_vec light_dir, t_vec normal)
     t_vec a;
     double n;
 
+    //https://toymaker.tistory.com/entry/%EB%B0%98%EC%82%AC-%EB%B2%A1%ED%84%B0-Reflection-Vector
     n = vec_dot(light_dir, normal);
     //'광원을 향한 벡터'과 '충돌점의 법선벡터'를 내적하여 값을 구한뒤
     a = vec_mul(normal, n);
