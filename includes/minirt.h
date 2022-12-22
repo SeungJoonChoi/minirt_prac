@@ -102,6 +102,8 @@ typedef struct s_scene
     t_obj world;
     t_obj light;
     t_color ambient;
+    t_ray ray;
+    t_hit_record rec;
 } t_scene;
 
 //vec1.c
@@ -116,6 +118,9 @@ t_vec vec_cross(t_vec vec1, t_vec vec2);
 double length_squared(t_vec vec);
 double vec_length(t_vec vec);
 t_vec vec_unit(t_vec vec);
+//vec3.c
+t_vec vec_limit(t_vec vec, t_vec limit);
+t_vec vec_mul_v(t_vec vec1, t_vec vec2);
 //ray.c
 t_ray ray_set(t_vec *origin, t_vec* direction);
 t_vec ray_at(t_ray *ray, double t);
@@ -127,7 +132,7 @@ t_camera camera(t_vec orig, t_vec dir, double fov, double aspect_ratio);
 t_image image(int width, int height);
 //color.c
 t_color color(double r, double g, double b);
-t_color ray_color(t_ray ray, t_obj *head);
+t_color ray_color(t_scene *scene);
 //mlx_utils.c
 int rgb_to_int(double trans, t_vec *color);
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -142,5 +147,8 @@ void obj_add(t_obj *head, int type, void *object);
 void obj_clear(t_obj *head);
 //scene.c
 t_scene scene_init(t_image img, t_camera cam, double ambient_ratio, t_color ambient_color);
+//light.c
+t_light *light_point(t_vec orig, t_color color, double ratio);
+t_color phong_lighting(t_scene *scene);
 
 #endif

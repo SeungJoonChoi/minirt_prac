@@ -10,12 +10,12 @@ t_color color(double r, double g, double b)
     return (ret);
 }
 
-t_color ray_color(t_ray ray, t_obj *head)
+t_color ray_color(t_scene *scene)
 {
     t_vec unit_vec;
     double t;
     // double r;
-    t_hit_record rec;
+    // t_hit_record rec;
     // int hit_flag;
     // t_obj *current;
 
@@ -35,15 +35,17 @@ t_color ray_color(t_ray ray, t_obj *head)
     // }
     // hit_flag = hit(&ray, head, &rec);
 
-    if (hit(&ray, head, &rec))
-    {
-        unit_vec = vec_unit(vec_sum(rec.normal, vec(0, 0, 4)));
-        return (vec_mul(vec_sum(unit_vec, vec(1, 1, 1)), 0.5));
-    }
+    // if (hit(&scene->ray, &scene->world, &scene->rec))
+    // {
+    //     unit_vec = vec_unit(vec_sum(rec.normal, vec(0, 0, 4)));
+    //     return (vec_mul(vec_sum(unit_vec, vec(1, 1, 1)), 0.5));
+    // }
+    if (hit(&scene->ray, &scene->world, &scene->rec))
+        return (phong_lighting(scene));
 
     // if (hit_sphere(vec(0, 0, 8), 3.0, ray))
     //     return (color(1.0, 0.0, 0.0));
-    unit_vec = vec_unit(ray.dir);
+    unit_vec = vec_unit(scene->ray.dir);
     t = 0.5 * (unit_vec.y + 1.0);
     return (vec(1.0 - (0.5 * t), 1.0 - (0.3 * t), 1.0));
 }
