@@ -12,7 +12,7 @@ t_color color(double r, double g, double b)
 
 t_color ray_color(t_scene *scene)
 {
-    t_vec unit_vec;
+    // t_vec unit_vec;
     double t;
     // double r;
     // t_hit_record rec;
@@ -45,7 +45,7 @@ t_color ray_color(t_scene *scene)
 
     // if (hit_sphere(vec(0, 0, 8), 3.0, ray))
     //     return (color(1.0, 0.0, 0.0));
-    unit_vec = vec_unit(scene->ray.dir);
-    t = 0.5 * (unit_vec.y + 1.0);
+    // unit_vec = vec_unit(scene->ray.dir);
+    t = 0.5 * (scene->ray.dir.y + 1.0);
     return (vec(1.0 - (0.5 * t), 1.0 - (0.3 * t), 1.0));
 }

@@ -28,7 +28,7 @@ int main()
     t_scene scene;
 
     scene = scene_init(image(1920, 1080), camera(vec(0, 0, 0), \
-    vec(0, 0, 1), 90.0, 1920.0 / 1080.0), 0.3, color(1, 1, 1));
+    vec(0, 0, 1), 90.0, 1920.0 / 1080.0), 0.2, color(1, 1, 1));
 
     //obj list temp
     obj_add(&scene.world, SPHERE, sphere(vec(-25, 0, 100), 50, color(0.5, 0, 0)));
