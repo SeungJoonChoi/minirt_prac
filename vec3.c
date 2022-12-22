@@ -28,3 +28,13 @@ t_vec vec_mul_v(t_vec vec1, t_vec vec2)
     ret.z = vec1.z * vec2.z;
     return (ret);
 }
+
+t_vec vec_sum_t(t_vec vec, double t)
+{
+    t_vec ret;
+
+    ret.x = vec.x + t;
+    ret.y = vec.y + t;
+    ret.z = vec.z + t;
+    return (ret);
+}

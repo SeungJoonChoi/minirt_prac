@@ -16,6 +16,9 @@
 #define SPHERE 0
 #define POINT 0
 
+#define SHININESS 128 //shininess value of object
+#define SPECULAR_INTENSITY 0.5
+
 typedef struct s_vars
 {
     void *mlx;
@@ -93,7 +96,7 @@ typedef struct s_light
 {
     t_vec orig;
     t_color color;
-    double ratio;
+    double intensity;
 } t_light;
 
 typedef struct s_scene
@@ -122,6 +125,7 @@ t_vec vec_unit(t_vec vec);
 //vec3.c
 t_vec vec_limit(t_vec vec, t_vec limit);
 t_vec vec_mul_v(t_vec vec1, t_vec vec2);
+t_vec vec_sum_t(t_vec vec, double t);
 //ray.c
 t_ray ray_set(t_vec *origin, t_vec* direction);
 t_vec ray_at(t_ray *ray, double t);
