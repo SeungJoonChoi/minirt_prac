@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-t_vec color(double r, double g, double b)
+t_color color_set(double r, double g, double b)
 {
-    t_vec ret;
+    t_color ret;
 
     ret.x = r;
     ret.y = g;
@@ -10,7 +10,7 @@ t_vec color(double r, double g, double b)
     return (ret);
 }
 
-t_vec ray_color(t_ray ray, t_obj *head)
+t_color ray_color(t_ray ray, t_obj *head)
 {
     t_vec unit_vec;
     double t;

@@ -37,6 +37,8 @@ typedef struct s_vec
     double z;
 } t_vec;
 
+typedef t_vec t_color;
+
 typedef struct s_ray
 {
     t_vec orig;
@@ -61,13 +63,6 @@ typedef struct s_camera
     t_vec lower_left_corner;
 } t_camera;
 
-typedef struct s_color
-{
-    double r;
-    double g;
-    double b;
-} t_color;
-
 typedef struct s_hit_record
 {
     t_vec p;
@@ -76,12 +71,14 @@ typedef struct s_hit_record
     double t_max;
     double t;
     int front_face;
+    t_color albedo;
 } t_hit_record;
 
 typedef struct s_sphere
 {
     t_vec orig;
     double rad;
+    t_color albedo;
 } t_sphere;
 
 typedef struct s_obj
@@ -113,13 +110,13 @@ t_camera camera(t_vec orig, t_vec dir, double fov, double aspect_ratio);
 //image.c
 t_image image(int width, double aspect_ratio);
 //color.c
-t_vec color(double r, double g, double b);
-t_vec ray_color(t_ray ray, t_obj *head);
+t_color color_set(double r, double g, double b);
+t_color ray_color(t_ray ray, t_obj *head);
 //mlx_utils.c
 int rgb_to_int(double trans, t_vec *color);
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 //sphere.c
-t_sphere *sphere(t_vec origin, double radius);
+t_sphere *sphere(t_vec origin, double radius, t_color albedo);
 int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *out);
 //hit.c
 int hit(t_ray *ray, t_obj *head, t_hit_record *rec);

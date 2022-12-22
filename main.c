@@ -23,7 +23,7 @@ int main()
     t_image img;
     t_camera cam;
     t_ray ray;
-    t_vec color;
+    t_color color;
     t_vars vars;
 
     //obj list temp
@@ -50,9 +50,9 @@ int main()
     // head.next->next->next = NULL;
     obj_list_init(&head);
     // s1 = sphere_init(vec(-25, 0, 100), 50);
-    obj_add(&head, SPHERE, sphere(vec(-25, 0, 100), 50));
-    obj_add(&head, SPHERE, sphere(vec(75, 0, 100), 50));
-    obj_add(&head, SPHERE, sphere(vec(0, 50, 100), 50));
+    obj_add(&head, SPHERE, sphere(vec(-25, 0, 100), 50, color_set(1, 1, 1)));
+    obj_add(&head, SPHERE, sphere(vec(75, 0, 100), 50, color_set(1, 1, 1)));
+    obj_add(&head, SPHERE, sphere(vec(0, 50, 100), 50, color_set(1, 1, 1)));
     //////////
 
     int j;

@@ -53,13 +53,14 @@ c = (A-C)*(A-C) - r^2
 //         return (-half_b - sqrt(discriminant));
 // }
 
-t_sphere *sphere(t_vec origin, double radius)
+t_sphere *sphere(t_vec origin, double radius, t_color albedo)
 {
     t_sphere *new;
 
     new = (t_sphere*)malloc(sizeof(t_sphere));
     new->orig = origin;
     new->rad = radius;
+    new->albedo = albedo;
     return (new);
 }
 
