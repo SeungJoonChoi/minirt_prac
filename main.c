@@ -52,6 +52,7 @@ int main()
     // s1 = sphere_init(vec(-25, 0, 100), 50);
     obj_add(&head, SPHERE, sphere(vec(-25, 0, 100), 50));
     obj_add(&head, SPHERE, sphere(vec(75, 0, 100), 50));
+    obj_add(&head, SPHERE, sphere(vec(0, 50, 100), 50));
     //////////
 
     int j;
