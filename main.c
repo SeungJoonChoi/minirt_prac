@@ -30,11 +30,13 @@ int main()
     scene = scene_init(image(1920, 1080), camera(vec(0, 0, 0), \
     vec(0, 0, 1), 90.0, 1920.0 / 1080.0), 0.2, color(1, 1, 1));
 
-    //obj list temp
-    obj_add(&scene.world, SPHERE, sphere(vec(-25, 0, 100), 50, color(0.5, 0, 0)));
-    obj_add(&scene.world, SPHERE, sphere(vec(75, 0, 100), 50, color(0, 0.5, 0)));
-    obj_add(&scene.world, SPHERE, sphere(vec(0, 50, 100), 50, color(0, 0, 0.5)));
-    //////////
+    //object
+    obj_add(&scene.world, SPHERE, sphere(vec(-25, 0, 150), 50, color(0.5, 0, 0)));
+    obj_add(&scene.world, SPHERE, sphere(vec(75, 0, 150), 50, color(0, 0.5, 0)));
+    obj_add(&scene.world, SPHERE, sphere(vec(0, 50, 150), 50, color(0, 0, 0.5)));
+
+    //light
+    obj_add(&scene.light, POINT, point_light(vec(-40, 50, 0), color(1, 1, 1), 0.6));
 
     int j;
     int i;

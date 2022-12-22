@@ -105,8 +105,10 @@ int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
         rec->t_max = rec->t; //충돌했다면 t_max 업데이트
         rec->p = ray_at(ray, root); //충돌한 정점좌표
         rec->normal = vec_div(vec_sub(rec->p, sphere->orig), sphere->rad);
-        rec->albedo = sphere->albedo;
         //법선벡터는 (C - A)의 단위벡터
+        rec->albedo = sphere->albedo;
+        //albedo 반사율은 모든 빛의 양을 구하고 반사율에 곱해서 최종적인 색을 결정한다.
+        
 
         set_face_normal(ray, rec);
     }

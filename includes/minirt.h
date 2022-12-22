@@ -14,6 +14,7 @@
 # define KEY_ESC			53
 
 #define SPHERE 0
+#define POINT 0
 
 typedef struct s_vars
 {
@@ -148,7 +149,8 @@ void obj_clear(t_obj *head);
 //scene.c
 t_scene scene_init(t_image img, t_camera cam, double ambient_ratio, t_color ambient_color);
 //light.c
-t_light *light_point(t_vec orig, t_color color, double ratio);
+t_light *point_light(t_vec orig, t_color color, double ratio);
 t_color phong_lighting(t_scene *scene);
+t_color point_light_get(t_scene *scene, t_light *light);
 
 #endif
