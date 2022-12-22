@@ -1,11 +1,11 @@
 #include "minirt.h"
 
-t_image image(int width, double aspect_ratio)
+t_image image(int width, int height)
 {
     t_image ret;
 
-    ret.aspect_ratio = aspect_ratio;
     ret.image_width = width;
-    ret.image_height = (int)((double)width / aspect_ratio);
+    ret.image_height = height;
+    ret.aspect_ratio = (double)width / (double)height;
     return (ret);
 }

@@ -20,39 +20,20 @@ static int close(t_vars *vars)
 int main()
 {
     t_data data;
-    t_image img;
-    t_camera cam;
+    
     t_ray ray;
-    t_color color;
+    t_color print_color;
     t_vars vars;
 
+    t_scene scene;
+
+    scene = scene_init(image(1920, 1080), camera(vec(0, 0, 0), \
+    vec(0, 0, 1), 90.0, 1920.0 / 1080.0), 0.2, color(1, 1, 1));
+
     //obj list temp
-    t_obj head;
-    // t_obj obj1;
-    // t_obj obj2;
-    // t_sphere* s1;
-    // t_sphere s2;
-
-    // s1.orig = vec(-25, 0, 100);
-    // s1.rad = 50;
-
-    // s2.orig = vec(75, 0, 100);
-    // s2.rad = 50;
-
-    // obj1.type = SPHERE;
-    // obj1.element = &s1;
-
-    // obj2.type = SPHERE;
-    // obj2.element = &s2;
-
-    // head.next = &obj1;
-    // head.next->next = &obj2;
-    // head.next->next->next = NULL;
-    obj_list_init(&head);
-    // s1 = sphere_init(vec(-25, 0, 100), 50);
-    obj_add(&head, SPHERE, sphere(vec(-25, 0, 100), 50, color_set(1, 1, 1)));
-    obj_add(&head, SPHERE, sphere(vec(75, 0, 100), 50, color_set(1, 1, 1)));
-    obj_add(&head, SPHERE, sphere(vec(0, 50, 100), 50, color_set(1, 1, 1)));
+    obj_add(&scene.world, SPHERE, sphere(vec(-25, 0, 100), 50, color(1, 1, 1)));
+    obj_add(&scene.world, SPHERE, sphere(vec(75, 0, 100), 50, color(1, 1, 1)));
+    obj_add(&scene.world, SPHERE, sphere(vec(0, 50, 100), 50, color(1, 1, 1)));
     //////////
 
     int j;
@@ -60,27 +41,26 @@ int main()
     double u;
     double v;
 
-    img = image(1600, 16.0 / 9.0);
-    cam = camera(vec(0, 0, 0), vec(0, 0, 1), 90.0, img.aspect_ratio);
+
 
     vars.mlx = mlx_init();
-    vars.win = mlx_new_window(vars.mlx, img.image_width, img.image_height, "seunchoi_minirt");
-    data.img = mlx_new_image(vars.mlx, img.image_width, img.image_height);
+    vars.win = mlx_new_window(vars.mlx, scene.image.image_width, scene.image.image_height, "seunchoi_minirt");
+    data.img = mlx_new_image(vars.mlx, scene.image.image_width, scene.image.image_height);
     data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length, &data.endian);
     
     // 뷰포트의 왼쪽하단부터 그리기 위해 i = 0, j = 높이 부터 시작
-    j = img.image_height - 1;
+    j = scene.image.image_height - 1;
     while (j >= 0)
     {
         i = 0;
-        while (i < img.image_width)
+        while (i < scene.image.image_width)
         {
-            u = (double)i / (double)(img.image_width - 1);
-            v = (double)j / (double)(img.image_height - 1);
-            ray = ray_viewport(&cam, u, v);
-            color = ray_color(ray, &head);
+            u = (double)i / (double)(scene.image.image_width - 1);
+            v = (double)j / (double)(scene.image.image_height - 1);
+            ray = ray_viewport(&scene.camera, u, v);
+            print_color = ray_color(ray, &scene.world);
             // mlx_pixel_put(mlx_ptr, mlx_win, i, img.image_height - 1 - j, rgb_to_int(0.0, &color));
-            my_mlx_pixel_put(&data, i, img.image_height - 1 - j, rgb_to_int(0.0, &color));
+            my_mlx_pixel_put(&data, i, scene.image.image_height - 1 - j, rgb_to_int(0.0, &print_color));
             ++i;
         }
         --j;
@@ -91,7 +71,7 @@ int main()
     mlx_hook(vars.win, X_EVENT_KEY_EXIT, 0, &close, &vars);
     mlx_loop(vars.mlx);
 
-    obj_clear(&head);
+    obj_clear(&scene.world);
 
     return (0);
 }

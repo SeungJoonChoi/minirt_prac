@@ -88,6 +88,22 @@ typedef struct s_obj
     struct s_obj *next;
 } t_obj;
 
+typedef struct s_light
+{
+    t_vec orig;
+    t_color color;
+    double ratio;
+} t_light;
+
+typedef struct s_scene
+{
+    t_image image;
+    t_camera camera;
+    t_obj world;
+    t_obj light;
+    t_color ambient;
+} t_scene;
+
 //vec1.c
 t_vec vec(double x, double y, double z);
 t_vec vec_sum(t_vec vec1, t_vec vec2);
@@ -108,21 +124,23 @@ t_ray ray_viewport(t_camera *camera, double u, double v);
 t_vec lower_left_corner(t_camera *camera);
 t_camera camera(t_vec orig, t_vec dir, double fov, double aspect_ratio);
 //image.c
-t_image image(int width, double aspect_ratio);
+t_image image(int width, int height);
 //color.c
-t_color color_set(double r, double g, double b);
+t_color color(double r, double g, double b);
 t_color ray_color(t_ray ray, t_obj *head);
 //mlx_utils.c
 int rgb_to_int(double trans, t_vec *color);
 void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 //sphere.c
 t_sphere *sphere(t_vec origin, double radius, t_color albedo);
-int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *out);
+int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *rec);
 //hit.c
 int hit(t_ray *ray, t_obj *head, t_hit_record *rec);
 //obj_list.c
 void obj_list_init(t_obj *head);
 void obj_add(t_obj *head, int type, void *object);
 void obj_clear(t_obj *head);
+//scene.c
+t_scene scene_init(t_image img, t_camera cam, double ambient_ratio, t_color ambient_color);
 
 #endif
