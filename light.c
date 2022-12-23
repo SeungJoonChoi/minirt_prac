@@ -11,11 +11,12 @@ static int in_shadow(t_scene *scene, t_light *light)
     t_hit_record rec;
 
     light_ray.dir = vec_unit(vec_sub(light->orig, scene->rec.p));
-    light_ray.orig = scene->rec.p;
+    light_ray.orig = vec_sum(scene->rec.p, vec_mul(scene->rec.normal, SHADOW_BIAS));
+    // light_ray.orig = scene->rec.p;
     light_len = vec_length(vec_sub(light->orig, scene->rec.p));
 
     rec.t_max = light_len;
-    rec.t_min = __FLT_EPSILON__;
+    rec.t_min = 0.0;
     if (hit(&light_ray, &scene->world, &rec))
         return (1);
     return (0);

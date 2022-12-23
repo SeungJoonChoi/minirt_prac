@@ -19,6 +19,7 @@
 #define SHININESS 128 //shininess value of object
 #define SPECULAR_INTENSITY 0.5
 #define LUMEN 3; //light_ratio * LUMEN
+#define SHADOW_BIAS __FLT_EPSILON__
 
 typedef struct s_vars
 {
@@ -130,7 +131,7 @@ t_vec vec_sum_t(t_vec vec, double t);
 //ray.c
 t_ray ray_set(t_vec *origin, t_vec* direction);
 t_vec ray_at(t_ray *ray, double t);
-t_ray ray_viewport(t_camera *camera, double u, double v);
+t_ray ray_viewport(t_scene *scene, double u, double v);
 //camera.c
 t_vec lower_left_corner(t_camera *camera);
 t_camera camera(t_vec orig, t_vec dir, double fov, double aspect_ratio);

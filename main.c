@@ -60,9 +60,7 @@ int main()
         {
             u = (double)i / (double)(scene.image.image_width - 1);
             v = (double)j / (double)(scene.image.image_height - 1);
-            scene.rec.t_max = INFINITY; //카메라의 최대 가시거리
-            scene.rec.t_min = __FLT_EPSILON__;        //카메라의 최소 가시거리
-            scene.ray = ray_viewport(&scene.camera, u, v);
+            scene.ray = ray_viewport(&scene, u, v);
             pixel_color = ray_color(&scene);
             // mlx_pixel_put(mlx_ptr, mlx_win, i, img.image_height - 1 - j, rgb_to_int(0.0, &color));
             my_mlx_pixel_put(&data, i, scene.image.image_height - 1 - j, rgb_to_int(0.0, &pixel_color));
