@@ -10,12 +10,20 @@ static int in_shadow(t_scene *scene, t_light *light)
     double light_len;
     t_hit_record rec;
 
+    /*
+    충돌점과 광원 사이에 물체가 있다면 충돌점에 그림자가 생길 것이다.
+    */
     light_ray.dir = vec_unit(vec_sub(light->orig, scene->rec.p));
     light_ray.orig = vec_sum(scene->rec.p, vec_mul(scene->rec.normal, SHADOW_BIAS));
     // light_ray.orig = scene->rec.p;
+    /*
+    충돌점이 정밀도의 오차로 인해 표면 아래에 찍혔을 경우
+    자기 자신과 교점을 구해서 그림자가 있다고 인식하기 때문에
+    법선벡터 방향으로 아주 작은값(SHADOW_BIAS)를 더해줘 표면 밖으로 꺼내준다.
+    */
     light_len = vec_length(vec_sub(light->orig, scene->rec.p));
 
-    rec.t_max = light_len;
+    rec.t_max = light_len; //광원과 충돌점 사이만 검사
     rec.t_min = 0.0;
     if (hit(&light_ray, &scene->world, &rec))
         return (1);
