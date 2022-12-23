@@ -4,6 +4,23 @@
 ambient lighting
 */
 
+static int in_shadow(t_scene *scene, t_light *light)
+{
+    t_ray light_ray;
+    double light_len;
+    t_hit_record rec;
+
+    light_ray.dir = vec_unit(vec_sub(light->orig, scene->rec.p));
+    light_ray.orig = scene->rec.p;
+    light_len = vec_length(vec_sub(light->orig, scene->rec.p));
+
+    rec.t_max = light_len;
+    rec.t_min = __FLT_EPSILON__;
+    if (hit(&light_ray, &scene->world, &rec))
+        return (1);
+    return (0);
+}
+
 t_light *point_light(t_vec orig, t_color color, double intensity)
 {
     t_light *new;
@@ -60,6 +77,9 @@ t_color point_light_get(t_scene *scene, t_light *light)
     double ksn; // shininess value of object
     double ks;  // specular strength
     double brightness;
+
+    if (in_shadow(scene, light))
+        return (color(0, 0, 0));
 
     light_dir = vec_unit(vec_sub(light->orig, scene->rec.p));
 

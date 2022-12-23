@@ -15,8 +15,8 @@ int hit(t_ray *ray, t_obj *head, t_hit_record *rec)
 
     hit_flag = 0; //맞았는지 확인
     cur = head->next;
-    rec->t_min = 0; //가시거리의 최소값
-    rec->t_max = INFINITY; //가시거리의 최댓값
+    // rec->t_min = 0; //가시거리의 최소값
+    // rec->t_max = INFINITY; //가시거리의 최댓값
     while (cur != NULL)
     {
         if (hit_obj(ray, cur, rec)) //오브젝트에 맞았다면 rec에 기록하고 1을 반환
