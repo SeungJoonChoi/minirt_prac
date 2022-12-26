@@ -28,7 +28,7 @@ t_plane *plane(t_vec origin, t_vec dir, t_color albedo)
 
     new = (t_plane*)malloc(sizeof(t_plane));
     new->orig = origin;
-    new->dir = dir;
+    new->dir = vec_unit(dir);
     new->albedo = albedo;
     return (new);
 }
