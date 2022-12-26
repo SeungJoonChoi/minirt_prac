@@ -86,31 +86,28 @@ int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
     discriminant = (half_b * half_b) - c;
     if (discriminant < 0)
         return (0);
-    else
+    sqrtd = sqrt(discriminant);
+    root = -half_b - sqrtd;
+    /*
+    가장 가까운 t(root)값을 구하기 위해 hit했다면 t_max를 t로 줄여주고
+    이후에 만나는 오브젝트마다 검사해준다.
+    */
+    if (root < rec->t_min || root > rec->t_max)
     {
-        sqrtd = sqrt(discriminant);
-        root = -half_b - sqrtd;
-        /*
-        가장 가까운 t(root)값을 구하기 위해 hit했다면 t_max를 t로 줄여주고
-        이후에 만나는 오브젝트마다 검사해준다.
-        */
+        root = -half_b + sqrtd;
         if (root < rec->t_min || root > rec->t_max)
-        {
-            root = -half_b + sqrtd;
-            if (root < rec->t_min || root > rec->t_max)
-                return (0);
-        }
-        //hit_record 업데이트
-        rec->t = root;
-        rec->t_max = rec->t; //충돌했다면 t_max 업데이트
-        rec->p = ray_at(ray, root); //충돌한 정점좌표
-        rec->normal = vec_div(vec_sub(rec->p, sphere->orig), sphere->rad);
-        //법선벡터는 (C - A)의 단위벡터
-        rec->albedo = sphere->albedo;
-        //albedo 반사율은 모든 빛의 양을 구하고 반사율에 곱해서 최종적인 색을 결정한다.
-        
-
-        set_face_normal(ray, rec);
+            return (0);
     }
+    //hit_record 업데이트
+    rec->t = root;
+    rec->t_max = rec->t; //충돌했다면 t_max 업데이트
+    rec->p = ray_at(ray, root); //충돌한 정점좌표
+    rec->normal = vec_div(vec_sub(rec->p, sphere->orig), sphere->rad);
+    //법선벡터는 (C - A)의 단위벡터
+    rec->albedo = sphere->albedo;
+    //albedo 반사율은 모든 빛의 양을 구하고 반사율에 곱해서 최종적인 색을 결정한다.
+    
+
+    set_face_normal(ray, rec);
     return (1);
 }

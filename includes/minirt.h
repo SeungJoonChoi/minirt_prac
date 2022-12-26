@@ -14,6 +14,7 @@
 # define KEY_ESC			53
 
 #define SPHERE 0
+#define PLANE 1
 #define POINT 0
 
 #define SHININESS 128 //shininess value of object
@@ -87,6 +88,13 @@ typedef struct s_sphere
     t_color albedo;
 } t_sphere;
 
+typedef struct s_plane
+{
+    t_vec orig;
+    t_vec dir;
+    t_color albedo;
+} t_plane;
+
 typedef struct s_obj
 {
     int type;
@@ -158,5 +166,8 @@ t_scene scene_init(t_image img, t_camera cam, double ambient_ratio, t_color ambi
 t_light *point_light(t_vec orig, t_color color, double ratio);
 t_color phong_lighting(t_scene *scene);
 t_color point_light_get(t_scene *scene, t_light *light);
+//plane.c
+t_plane *plane(t_vec origin, t_vec dir, t_color albedo);
+int hit_plane(t_ray *ray, t_plane *plane, t_hit_record *rec);
 
 #endif

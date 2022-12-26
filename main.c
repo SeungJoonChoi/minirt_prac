@@ -34,9 +34,11 @@ int main()
     obj_add(&scene.world, SPHERE, sphere(vec(-5, 0, 10), 3, color(0.7, 0.2, 0.2)));
     // obj_add(&scene.world, SPHERE, sphere(vec(0, 0, 100), 1, color(0.2, 0.7, 0.2)));
     obj_add(&scene.world, SPHERE, sphere(vec(5, 0, 10), 5, color(0.2, 0.2, 0.7)));
+    obj_add(&scene.world, PLANE, plane(vec(0, -3, 0), vec(0, 1, 0), color(0.2, 0.7, 0.2)));
+    obj_add(&scene.world, PLANE, plane(vec(12, 0, 0), vec(-1, 0, 0), color(0.7, 0.2, 0.2)));
 
     //light
-    obj_add(&scene.light, POINT, point_light(vec(-100, 10, 7), color(1, 1, 1), 0.6));
+    obj_add(&scene.light, POINT, point_light(vec(-50, 50, -30), color(1, 1, 1), 0.6));
     // obj_add(&scene.light, POINT, point_light(vec(100, -50, 100), color(1, 0, 0), 0.6));
 
     int j;
