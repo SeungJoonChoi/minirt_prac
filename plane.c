@@ -49,5 +49,6 @@ int hit_plane(t_ray *ray, t_plane *plane, t_hit_record *rec)
     rec->p = ray_at(ray, root);
     rec->normal = plane->dir; // 검증
     rec->albedo = plane->albedo;
+
     return (1);
 }

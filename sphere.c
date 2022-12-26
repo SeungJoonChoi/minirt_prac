@@ -64,12 +64,7 @@ t_sphere *sphere(t_vec origin, double radius, t_color albedo)
     return (new);
 }
 
-static void set_face_normal(t_ray *ray, t_hit_record *rec)
-{
-    rec->front_face = vec_dot(ray->dir, rec->normal) < 0;
-    if (!rec->front_face)
-        rec->normal = vec_mul(rec->normal, -1.0);
-}
+
 
 int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
 {
@@ -107,7 +102,5 @@ int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *rec)
     rec->albedo = sphere->albedo;
     //albedo 반사율은 모든 빛의 양을 구하고 반사율에 곱해서 최종적인 색을 결정한다.
     
-
-    set_face_normal(ray, rec);
     return (1);
 }

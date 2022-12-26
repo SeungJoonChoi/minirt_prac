@@ -155,6 +155,7 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color);
 t_sphere *sphere(t_vec origin, double radius, t_color albedo);
 int hit_sphere(t_ray *ray, t_sphere *sphere, t_hit_record *rec);
 //hit.c
+void set_face_normal(t_ray *ray, t_hit_record *rec);
 int hit(t_ray *ray, t_obj *head, t_hit_record *rec);
 //obj_list.c
 void obj_list_init(t_obj *head);

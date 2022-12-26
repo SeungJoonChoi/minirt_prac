@@ -1,5 +1,12 @@
 #include "minirt.h"
 
+void set_face_normal(t_ray *ray, t_hit_record *rec)
+{
+    rec->front_face = vec_dot(ray->dir, rec->normal) < 0;
+    if (!rec->front_face)
+        rec->normal = vec_mul(rec->normal, -1.0);
+}
+
 static int hit_obj(t_ray *ray, t_obj *obj, t_hit_record *rec)
 {
     if (obj->type == SPHERE)
@@ -25,5 +32,8 @@ int hit(t_ray *ray, t_obj *head, t_hit_record *rec)
             hit_flag = 1;
         cur = cur->next;
     }
+
+    set_face_normal(ray, rec);
+    //카메라가 충돌면의 뒷면을 보고 있다면 방향을 카메라쪽으로 바꿔줘야함(법선벡터의 방향을 바꿔줌)
     return (hit_flag);
 }
