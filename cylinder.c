@@ -46,7 +46,7 @@ int hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
             return (0);
     }
     if (h > cylinder->half_h)
-    return (0);
+        return (0);
     //
 
     //뚜껑이 있을때
@@ -75,3 +75,10 @@ int hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
 
     return (1);
 }
+
+/*
+t = |b|
+a * b = |a| * |b| * cos
+dot(a,b) / (len(a) * len(b)) = cos
+cos' / cos
+*/
