@@ -13,6 +13,8 @@ static int hit_obj(t_ray *ray, t_obj *obj, t_hit_record *rec)
         return (hit_sphere(ray, obj->element, rec));
     else if (obj->type == PLANE)
         return (hit_plane(ray, obj->element, rec));
+    else if (obj->type == CYLINDER)
+        return (hit_cylinder(ray, obj->element, rec));
     // if (type == ???) ...
     return (0);
 }
