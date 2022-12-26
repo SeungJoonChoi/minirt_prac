@@ -37,11 +37,11 @@ int main()
     // obj_add(&scene.world, PLANE, plane(vec(0, 0, 100), vec(0, 0, 1), color(0.5, 0.5, 0.5)));
     // obj_add(&scene.world, PLANE, plane(vec(0, 20, 0), vec(0, 1, 0), color(0.5, 0.1, 0.5)));
     obj_add(&scene.world, PLANE, plane(vec(0, -20, 0), vec(0, 1, 0), color(0.5, 0.1, 0.5)));
-    obj_add(&scene.world, CYLINDER, cylinder(vec(0, 0, 10), vec(1, 1, 1), 2.0, 5.0, color(0.3, 0.3, 0.3)));
+    obj_add(&scene.world, CYLINDER, cylinder(vec(0, 0, 10), vec(1, 1, 1), 2.0, 5.0, color(0.3, 0.7, 0.3)));
 
     //light
     obj_add(&scene.light, POINT, point_light(vec(-15, 15, -10), color(1, 1, 1), 0.2));
-    obj_add(&scene.light, POINT, point_light(vec(100, 50, -100), color(0, 0, 1), 0.2));
+    // obj_add(&scene.light, POINT, point_light(vec(100, 50, -100), color(0, 0, 1), 0.2));
     // obj_add(&scene.light, POINT, point_light(vec(100, -50, 100), color(1, 0, 0), 0.6));
 
     int j;

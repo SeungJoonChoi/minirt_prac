@@ -35,19 +35,42 @@ int hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
         return (0);
     sqrtd = sqrt(discriminant);
     root = (-half_b - sqrtd) / a;
-    if (root < rec->t_min || root > rec->t_max)
-    {
+    
+    //뚜껑이 있다면 원기둥의 안쪽면까지 표현할 필요는 없음.
+    h = sqrt(length_squared(vec_sub(ray_at(ray, root), cylinder->orig)) - (cylinder->rad * cylinder->rad));
+    if (root < rec->t_min || root > rec->t_max || h > cylinder->half_h)
+    {    
         root = (-half_b + sqrtd) / a;
-        if (root < rec->t_min || root > rec->t_max)
+        h = sqrt(length_squared(vec_sub(ray_at(ray, root), cylinder->orig)) - (cylinder->rad * cylinder->rad));
+        if (root < rec->t_min || root > rec->t_max || h > cylinder->half_h)
             return (0);
     }
+    if (h > cylinder->half_h)
+    return (0);
+    //
+
+    //뚜껑이 있을때
+    // if (root < rec->t_min || root > rec->t_max)
+    // {
+    //     root = -half_b + sqrtd;
+    //     if (root < rec->t_min || root > rec->t_max)
+    //         return (0);
+    // }
+    // h = sqrt(length_squared(vec_sub(ray_at(ray, root), cylinder->orig)) - (cylinder->rad * cylinder->rad));
+    // if (h > cylinder->half_h)
+    //     return (0);
+    //
+
+    rec->p = ray_at(ray, root);
     rec->t = root;
     rec->t_max = rec->t;
-    rec->p = ray_at(ray, root);
-    h = sqrt(length_squared(vec_sub(rec->p, cylinder->orig)) - (cylinder->rad * cylinder->rad));
+
+    if (vec_dot(vec_sub(rec->p, cylinder->orig), cylinder->dir) < 0)
+        h *= -1;
     f = vec_sum(cylinder->orig, vec_mul(cylinder->dir, h));
     //lenght_squared(p - c) - (rad * rad)
     rec->normal = vec_div(vec_sub(rec->p, f), cylinder->rad);
+    // rec->normal = vec_div(vec_sub(rec->p, cylinder->orig), cylinder->rad);
     rec->albedo = cylinder->albedo;
 
     return (1);
