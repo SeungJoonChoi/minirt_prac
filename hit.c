@@ -15,6 +15,13 @@ static int hit_obj(t_ray *ray, t_obj *obj, t_hit_record *rec)
         return (hit_plane(ray, obj->element, rec));
     else if (obj->type == CYLINDER)
         return (hit_cylinder(ray, obj->element, rec));
+    // {
+    //     if (hit_cylinder(ray, obj->element, rec))
+    //         ret = 2;
+    //     // if (hit_circle(ray, obj->element, rec))
+    //     //     ret = 1;
+    //     return (ret);
+    // }
     // if (type == ???) ...
     return (0);
 }

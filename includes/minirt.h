@@ -185,5 +185,6 @@ int hit_plane(t_ray *ray, t_plane *plane, t_hit_record *rec);
 //cylinder.c
 t_cylinder *cylinder(t_vec origin, t_vec dir, double diameter, double height, t_color albedo);
 int hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec);
+int hit_circle(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec);
 
 #endif
