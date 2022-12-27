@@ -36,20 +36,21 @@ int hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
     if (discriminant < 0)
         ret = 0;
     else
+    {
         ret = 1;
-    sqrtd = sqrt(discriminant);
-    root = (-half_b - sqrtd) / a;
-    
-    h = sqrt(length_squared(vec_sub(ray_at(ray, root), cylinder->orig)) - (cylinder->rad * cylinder->rad));
-    if (root < rec->t_min || root > rec->t_max || h > cylinder->half_h)
-    {    
-        root = (-half_b + sqrtd) / a;
+        sqrtd = sqrt(discriminant);
+        root = (-half_b - sqrtd) / a;
+        
+        if (root < rec->t_min || root > rec->t_max)
+        {    
+            root = (-half_b + sqrtd) / a;
+            if (root < rec->t_min || root > rec->t_max)
+                ret = 0;
+        }
         h = sqrt(length_squared(vec_sub(ray_at(ray, root), cylinder->orig)) - (cylinder->rad * cylinder->rad));
-        if (root < rec->t_min || root > rec->t_max || h > cylinder->half_h)
+        if (h > cylinder->half_h)
             ret = 0;
     }
-    if (h > cylinder->half_h)
-        ret = 0;
 
 
     if (ret)
@@ -59,11 +60,9 @@ int hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
         rec->t_max = rec->t;
 
         if (vec_dot(vec_sub(rec->p, cylinder->orig), cylinder->dir) < 0)
-            h *= -1;
+            h *= -1; //p가 원기둥의 아랫부분에 있다면 원기둥의 반대 방향으로 h를 곱해줌.
         f = vec_sum(cylinder->orig, vec_mul(cylinder->dir, h));
-        //lenght_squared(p - c) - (rad * rad)
         rec->normal = vec_div(vec_sub(rec->p, f), cylinder->rad);
-        // rec->normal = vec_div(vec_sub(rec->p, cylinder->orig), cylinder->rad);
         rec->albedo = cylinder->albedo;
     }
     if (hit_circle(ray, cylinder, rec))
@@ -87,10 +86,15 @@ t = ((C - O) * N) / (D * N) (t를 (C - O)에 곱하면 광선의 길이를 구�
 int hit_circle(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
 {
     t_vec c;
+    double parallel;
     double root;
     t_vec oc;
 
-    if (vec_dot(ray->dir, cylinder->dir) > 0) //원기둥은 위아래 대칭이기 때문에 윗부분이 카메라와 마주보도록 뒤집어줌
+    parallel = vec_dot(ray->dir, cylinder->dir); //원판이 ray와 평행하다면 계산할 필요 없음
+    if (parallel == 0)
+        return (0);
+
+    if (parallel > 0) //원기둥은 위아래 대칭이기 때문에 윗부분이 카메라와 마주보도록 뒤집어줌
         cylinder->dir = vec_mul(cylinder->dir, -1);
     c = vec_sum(cylinder->orig, vec_mul(cylinder->dir, cylinder->half_h)); //원판의 중심
     oc = vec_sub(c, ray->orig);
@@ -101,7 +105,8 @@ int hit_circle(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
     //t가 범위안에 있는지와 더불어 원판의 범위(반지름)을 넘어가는지도 확인해줌
     {
         //t가 범위안에 없다면 원기둥의 윗부분이 카메라 뒤에 있다는 뜻이므로 아랫부분의 원판의 t는 범위안에 있는지 확인해줌
-        c = vec_sum(cylinder->orig, vec_mul(cylinder->dir, -(cylinder->half_h)));
+        cylinder->dir = vec_mul(cylinder->dir, -1);
+        c = vec_sum(cylinder->orig, vec_mul(cylinder->dir, cylinder->half_h));
         oc = vec_sub(c, ray->orig);
         root = vec_dot(vec_unit(oc), cylinder->dir) / vec_dot(ray->dir, cylinder->dir);
         root *= vec_length(oc);
