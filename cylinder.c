@@ -13,6 +13,18 @@ t_cylinder *cylinder(t_vec origin, t_vec dir, double diameter, double height, t_
     return (new);
 }
 
+/*
+((P - C) X o)^2 = r^2 (o는 원기둥의 방향벡터)
+-> a * a = |a| * |a| 이므로
+외적으로 나온 벡터(방향벡터와 수직)의 크기가 반지름과 같다면 원기둥 위의 점일것이라는 것을 이용
+
+위의 식을 2차방정식의 형태로 풀면
+
+a = (b X o)^2
+b/2 = (b X o)*((A - C) X o)
+c = ((A - C) X o)^2 - r^2
+*/
+
 int hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
 {
     t_vec oc;
@@ -47,12 +59,11 @@ int hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
             if (root < rec->t_min || root > rec->t_max)
                 ret = 0;
         }
+        //원기둥의 높이(cylinder.half_h)를 넘어가는 root라면 return 0
         h = sqrt(length_squared(vec_sub(ray_at(ray, root), cylinder->orig)) - (cylinder->rad * cylinder->rad));
         if (h > cylinder->half_h)
             ret = 0;
     }
-
-
     if (ret)
     {
         rec->p = ray_at(ray, root);
@@ -65,6 +76,7 @@ int hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
         rec->normal = vec_div(vec_sub(rec->p, f), cylinder->rad);
         rec->albedo = cylinder->albedo;
     }
+    //rec을 우선 기록하고 원판을 맞았는지 확인
     if (hit_circle(ray, cylinder, rec))
         return (1);
 
