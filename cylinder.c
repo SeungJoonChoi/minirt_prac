@@ -17,6 +17,7 @@ t_cylinder *cylinder(t_vec origin, t_vec dir, double diameter, double height, t_
 ((P - C) X o)^2 = r^2 (o는 원기둥의 방향벡터)
 -> a * a = |a| * |a| 이므로
 외적으로 나온 벡터(방향벡터와 수직)의 크기가 반지름과 같다면 원기둥 위의 점일것이라는 것을 이용
+https://oopy.lazyrockets.com/api/v2/notion/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fdfd1379a-a6c8-4bb1-b5f2-debd13a965ba%2FUntitled.png&blockId=582c6da7-eeba-4cc1-9b6a-d111efc6857f
 
 위의 식을 2차방정식의 형태로 풀면
 
