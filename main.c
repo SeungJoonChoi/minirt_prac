@@ -32,7 +32,7 @@ int main()
 
     //object
     obj_add(&scene.world, SPHERE, sphere(vec(-5, 0, 10), 3, color(0.7, 0.2, 0.2)));
-    // obj_add(&scene.world, SPHERE, sphere(vec(0, 0, 10), 3, color(0.2, 0.7, 0.2)));
+    // obj_add(&scene.world, SPHERE, sphere(vec(0, 0, 0), 20, color(0.2, 0.7, 0.2)));
     obj_add(&scene.world, SPHERE, sphere(vec(5, 0, 10), 3, color(0.2, 0.2, 0.7)));
     // obj_add(&scene.world, PLANE, plane(vec(0, 0, 0), vec(0, 1, 0), color(0.5, 0.5, 0.5)));
     // obj_add(&scene.world, PLANE, plane(vec(0, 20, 0), vec(0, 1, 0), color(0.5, 0.1, 0.5)));
@@ -41,7 +41,7 @@ int main()
     // obj_add(&scene.world, CYLINDER, cylinder(vec(0, 0, 0), vec(0, 0, -1), 6, 20, color(0.3, 0.7, 0.3)));
 
     //light
-    obj_add(&scene.light, POINT, point_light(vec(-15, 15, -10), color(1, 1, 1), 0.2));
+    obj_add(&scene.light, POINT, point_light(vec(-15, 15, -10), color(1, 1, 1), 0.3));
     // obj_add(&scene.light, POINT, point_light(vec(15, 15, -10), color(1, 1, 1), 0.2));
     // obj_add(&scene.light, POINT, point_light(vec(2, 2, -9), color(1, 1, 1), 0.6));
 

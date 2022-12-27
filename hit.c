@@ -3,6 +3,7 @@
 void set_face_normal(t_ray *ray, t_hit_record *rec)
 {
     rec->front_face = vec_dot(ray->dir, rec->normal) < 0;
+    //카메라와 정면으로 마주보고 있는지 기록해둠
     if (!rec->front_face)
         rec->normal = vec_mul(rec->normal, -1.0);
 }
@@ -15,14 +16,6 @@ static int hit_obj(t_ray *ray, t_obj *obj, t_hit_record *rec)
         return (hit_plane(ray, obj->element, rec));
     else if (obj->type == CYLINDER)
         return (hit_cylinder(ray, obj->element, rec));
-    // {
-    //     if (hit_cylinder(ray, obj->element, rec))
-    //         ret = 2;
-    //     // if (hit_circle(ray, obj->element, rec))
-    //     //     ret = 1;
-    //     return (ret);
-    // }
-    // if (type == ???) ...
     return (0);
 }
 
