@@ -104,10 +104,16 @@ int hit_circle(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
 
     // root = vec_sum(ray->orig, vec_mul(ray->dir, t));
     
-    if (root < rec->t_min || root > rec->t_max)
-        return (0);
-    if (vec_length(vec_sub(ray_at(ray, root), c)) > cylinder->rad)
-        return (0);
+    if (root < rec->t_min || root > rec->t_max || vec_length(vec_sub(ray_at(ray, root), c)) > cylinder->rad)
+    {
+        c = vec_sum(cylinder->orig, vec_mul(cylinder->dir, -(cylinder->half_h)));
+        oc = vec_sub(c, ray->orig);
+        root = vec_dot(vec_unit(oc), cylinder->dir) / vec_dot(ray->dir, cylinder->dir);
+        root *= vec_length(oc);
+        if (root < rec->t_min || root > rec->t_max || vec_length(vec_sub(ray_at(ray, root), c)) > cylinder->rad)
+                return (0);
+        // return (0);
+    }
 
     rec->p = ray_at(ray, root);
     rec->t = root;
