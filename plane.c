@@ -8,6 +8,13 @@ ax + by + cz + d = 0 (d는 상수)
 ray가 평행하게 지나기 때문에 교점을 구하지 않는다.
 둘을 내적해서 0이 나온다면 평행 (plane.n * ray.dir = 0)
 
+(P - O) * n = 0
+-> (x-x1, y-y1, z-z1)*(a, b, c) = 0
+-> a(x - x1) + b(y - y1) + c(z - z1) = 0
+-> ax + by + cz -(ax1 + by1 + cz1) = 0
+-> O와 n은 상수이기 때문에
+-> ax + by + cz + d = 0
+
 ax + by + cz + d = 0 (a,b,c는 법선벡터의 성분, d는 상수)
 -> (n * P) + d = 0 (P는 평면위의 점 -> plane.orig를 사용함)
 -> d = -(n * P)
