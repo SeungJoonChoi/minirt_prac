@@ -66,7 +66,7 @@ t_vec reflect(t_vec light_dir, t_vec normal)
     //https://toymaker.tistory.com/entry/%EB%B0%98%EC%82%AC-%EB%B2%A1%ED%84%B0-Reflection-Vector
     n = vec_dot(light_dir, normal);
     //'광원을 향한 벡터'과 '충돌점의 법선벡터'를 내적하여 값을 구한뒤
-    a = vec_mul(normal, n);
+    a = vec_mul(normal, n); //투영벡터
     //'법선벡터'에 값을 곱하여 '법선방향'과 '내적한 값의 크기'를 가지는 a벡터를 구함
     ret = vec_sum(vec_sum(vec_mul(light_dir, -1), a), a);
     //'광원을 향한 벡터'를 반전시키고 a를 두 번 더해주면 반사되어 나온 벡터를 구할 수 있음.
