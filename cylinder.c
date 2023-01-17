@@ -88,7 +88,7 @@ int hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_hit_record *rec)
 hit_circle
 
 t = cos' / cos
-t = ((C - O) * N) / (D * N) (t를 (C - O)에 곱하면 광선의 길이를 구할 수 있음)
+t = (unit(C - O) * N) / (dir * N) (t를 (C - O)에 곱하면 광선의 길이를 구할 수 있음)
 
 'ray.orig에서 circle의 중심까지의 벡터(C - O)'와 'circle의 법선벡터(N)'를 내적하여 cos'값을 구할 수 있음
 'ray.dir와 N을 내적'하여 cos을 구한 뒤 cos과 cos'의 비율을 이용하여 t를 구할 수 있음.
